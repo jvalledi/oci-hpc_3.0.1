@@ -642,6 +642,10 @@ def get_node_configuration(config) -> Dict[str, any]:
             "Boards": 1, "SocketsPerBoard": 2, "CoresPerSocket": 96,
             "ThreadsPerCore": threadspercore
         },
+        "BM.Standard.E6.256": {
+            "Boards": 1, "SocketsPerBoard": 2, "CoresPerSocket": 128,
+            "ThreadsPerCore": threadspercore
+        },
         "BM.Optimized3.36": {
             "Boards": 1, "SocketsPerBoard": 2, "CoresPerSocket": 18,
             "ThreadsPerCore": threadspercore
