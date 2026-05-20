@@ -1,0 +1,41 @@
+---
+- name: Restart slurm server
+  become: true
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  with_items: "{{ ['slurmctld'] if slurm_federation | bool else ['slurmdbd', 'slurmctld'] }}"
+  register: result
+  until: result is not failed
+  retries: 5
+  delay: 5
+
+- name: Restart slurm
+  become: true
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  with_items:
+    - slurmd
+  register: result
+  until: result is not failed
+  retries: 5
+  delay: 5
+
+- name: Restart munge
+  become: true
+  ansible.builtin.service:
+    name: munge
+    state: restarted
+    enabled: true
+
+- name: Reconfigure slurm
+  become: true
+  ansible.builtin.command: "scontrol reconfigure"
+  delegate_to: 127.0.0.1
+  register: result
+  until: result is not failed
+  retries: 5
+  delay: 5
