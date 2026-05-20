@@ -5,6 +5,11 @@ After=munge.service network-online.target remote-fs.target sssd.service
 
 [Service]
 Restart=always
+LimitNOFILE=1048576
+LimitMEMLOCK=infinity
+LimitSTACK=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
 ExecStart=
 {% if shape == "BM.GPU2.2"%}
 {% set gres = "Gres=gpu:P100:2" %}
