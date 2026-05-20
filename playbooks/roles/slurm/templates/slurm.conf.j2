@@ -156,6 +156,8 @@ NodeName={{instance.hostname_convention}}-[1-{{instance.max_number_nodes | strin
 NodeName={{instance.hostname_convention}}-[1-{{instance.max_number_nodes | string }}] Boards=1 SocketsPerBoard=2 CoresPerSocket=72 ThreadsPerCore={{threadspercore}}  State=CLOUD Feature={{instance.name}}
 {% elif instance.shape == "BM.Standard.E5.192" %}
 NodeName={{instance.hostname_convention}}-[1-{{instance.max_number_nodes | string }}] Boards=1 SocketsPerBoard=2 CoresPerSocket=96 ThreadsPerCore={{threadspercore}}  State=CLOUD Feature={{instance.name}}
+% elif instance.shape == "BM.Standard.E6.256" %}
+NodeName={{instance.hostname_convention}}-[1-{{instance.max_number_nodes | string }}] Boards=1 SocketsPerBoard=2 CoresPerSocket=128 ThreadsPerCore={{threadspercore}} State=CLOUD Feature={{instance.name}}
 {% elif instance.shape == "BM.Optimized3.36" %}
 NodeName={{instance.hostname_convention}}-[1-{{instance.max_number_nodes | string }}] Boards=1 SocketsPerBoard=2 CoresPerSocket=18 ThreadsPerCore={{threadspercore}}  State=CLOUD Feature={{instance.name}}
 {% elif "VM.Standard2." in instance.shape %}
