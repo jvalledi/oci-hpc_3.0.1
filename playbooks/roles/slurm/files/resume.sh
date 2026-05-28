@@ -28,9 +28,9 @@ for cluster in "${!cluster_hosts[@]}"; do
     echo $host_list $instance_type $count
     if /config/venv/${ID^}_${VERSION_ID}_$(uname -m)/oci/bin/python3 /config/mgmt/manage.py clusters list --format json | jq -e ".[] | select(. == \"$cluster\")" > /dev/null; then
         echo "Adding nodes to existing cluster: $cluster"
-        /config/venv/${ID^}_${VERSION_ID}_$(uname -m)/oci/bin/python3 /config/mgmt/manage.py clusters add node --cluster "$cluster" --count "$count" --names "$host_list"
+        systemd-run --unit=slurm-resume-$host /config/venv/${ID^}_${VERSION_ID}_$(uname -m)/oci/bin/python3 /config/mgmt/manage.py clusters add node --cluster "$cluster" --count "$count" --names "$host_list"
     else
         echo "Creating new cluster: $cluster"
-        /config/venv/${ID^}_${VERSION_ID}_$(uname -m)/oci/bin/python3 /config/mgmt/manage.py clusters create --cluster "$cluster" --count "$count" --instancetype "$instance_type" --names "$host_list"
+        systemd-run --unit=slurm-resume-$host /config/venv/${ID^}_${VERSION_ID}_$(uname -m)/oci/bin/python3 /config/mgmt/manage.py clusters create --cluster "$cluster" --count "$count" --instancetype "$instance_type" --names "$host_list"
     fi
 done
