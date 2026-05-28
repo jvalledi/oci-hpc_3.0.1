@@ -189,14 +189,14 @@ NodeName={{instance.hostname_convention}}-[1-{{instance.max_number_nodes | strin
 {%- endfor %}
 {%- if partition.default %}
     {%- if ns.has_ondemand == 1 %}
-PartitionName={{ partition.name }} Nodes={{ ns.nodesList | join(',') }} Default=YES ResumeTimeout=1200 SuspendTimeout=200 SuspendTime=300
+PartitionName={{ partition.name }} Nodes={{ ns.nodesList | join(',') }} Default=YES ResumeTimeout=7200 SuspendTimeout=200 SuspendTime=300
     {%- else %}
 PartitionName={{ partition.name }} Nodes={{ ns.nodesList | join(',') }} Default=YES
 PartitionName={{ ns.nodesList | join(',') }}-healthcheck Nodes={{ ns.nodesList | join(',') }} Default=NO PriorityTier=0
     {%- endif %}
 {%- else %}
     {%- if ns.has_ondemand == 1 %}
-PartitionName={{ partition.name }} Nodes={{ ns.nodesList | join(',') }} Default=NO ResumeTimeout=1200 SuspendTimeout=200 SuspendTime=300
+PartitionName={{ partition.name }} Nodes={{ ns.nodesList | join(',') }} Default=NO ResumeTimeout=7200 SuspendTimeout=200 SuspendTime=300
     {%- else %}
 PartitionName={{ partition.name }} Nodes={{ ns.nodesList | join(',') }} Default=NO
 PartitionName={{ ns.nodesList | join(',') }}-healthcheck Nodes={{ ns.nodesList | join(',') }} Default=NO PriorityTier=0
