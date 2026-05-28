@@ -196,6 +196,28 @@
     owner: slurm
     group: slurm
 
+- name: Allow slurm user to manage systemd units via polkit
+  become: true
+  copy:
+    dest: /etc/polkit-1/rules.d/51-slurm-systemd.rules
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      polkit.addRule(function(action, subject) {
+          if (action.id == "org.freedesktop.systemd1.manage-units" &&
+              subject.user == "slurm") {
+              return polkit.Result.YES;
+          }
+      });
+
+- name: Restart polkit to apply rules
+  become: true
+  service:
+    name: polkit
+    state: restarted
+
+
 - name: Copy resume and suspend script
   become: true
   ansible.builtin.copy:
